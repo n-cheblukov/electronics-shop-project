@@ -33,3 +33,8 @@ def test_instantiate_from_csv():
 def test_check_name(product_item):
     product_item.name = 'Hi-Fi'
     assert product_item.name == 'Hi-Fi'
+
+
+def test_repr_str(product_item):
+    assert repr(product_item) == "Item('TV', 150000, 5)"
+    assert str(product_item) == 'TV'
