@@ -21,6 +21,13 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+
+    def __str__(self):
+        return f"{self.__name}"
+
     @property
     def name(self) -> str:
         return self.__name
@@ -46,7 +53,7 @@ class Item:
         """
         self.price *= self.pay_rate
 
-# Создаем класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv_
+    # Создаем класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv_
     @classmethod
     def instantiate_from_csv(cls):
         cls.all.clear()
@@ -55,7 +62,7 @@ class Item:
             for row in reader:
                 cls(row['name'], row['price'], row['quantity'])
 
-# Создаем статический метод, возвращающий число из числа-строки
+    # Создаем статический метод, возвращающий число из числа-строки
     @staticmethod
     def string_to_number(file):
         return int(float(file))
