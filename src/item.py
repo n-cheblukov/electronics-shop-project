@@ -24,9 +24,14 @@ class Item:
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
-
     def __str__(self):
         return f"{self.__name}"
+
+    def __add__(self, other):
+        """Сложение экземпляров класса Phone и Item по количеству товара в магазине"""
+        if not isinstance(other, self.__class__):
+            raise ValueError('Невозможно сложить не зависящие классы')
+        return self.quantity + other.quantity
 
     @property
     def name(self) -> str:
