@@ -16,6 +16,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+        super().__init__()
         self.name = name
         self.price = price
         self.quantity = quantity
@@ -39,7 +40,7 @@ class Item:
 
     @name.setter
     def name(self, new_name):
-        if len(new_name) <= 10:
+        if len(new_name) <= 20:
             self.__name = new_name
         else:
             raise Exception(f'{new_name} - is too much letters')
