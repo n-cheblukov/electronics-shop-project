@@ -8,6 +8,7 @@ class Item:
     """
     pay_rate = 1.0
     all = []
+    CSV = '../src/items.csv'
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
@@ -63,12 +64,28 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         cls.all.clear()
-        with open('../src/items.csv', 'r', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                cls(row['name'], row['price'], row['quantity'])
+        try:
+            with open(cls.CSV, 'r', newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if len(row['name']) == 0 or int(row['price']) < 1 or int(row['quantity']) < 0:
+                        raise InstantiateCSVError('Файл item.csv поврежден')
+                    cls(row['name'], row['price'], row['quantity'])
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
     # Создаем статический метод, возвращающий число из числа-строки
     @staticmethod
     def string_to_number(file):
         return int(float(file))
+
+
+class InstantiateCSVError(Exception):
+    """
+    Исключения повреждения CSV-файла
+    """
+    def __init__(self, massage):
+        self.message = massage
+
+    def __str__(self):
+        return f'{self.message}'
